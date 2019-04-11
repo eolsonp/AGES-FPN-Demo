@@ -15,6 +15,8 @@ public class DetectLookedAtInteractive : MonoBehaviour
     [SerializeField]
     private float maxRange = 5.0f;
 
+    public IInteractive lookedAtInteractive;
+
     private void FixedUpdate()
     {
         Debug.DrawRay(raycastOrigin.position, raycastOrigin.forward * maxRange, Color.red);
@@ -30,7 +32,7 @@ public class DetectLookedAtInteractive : MonoBehaviour
         }
 
         if (interactive != null)
-            interactive.InteractWith(); 
+            lookedAtInteractive = interactive;
 
     }
 }
