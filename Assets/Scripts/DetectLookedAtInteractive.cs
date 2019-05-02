@@ -60,7 +60,7 @@ public class DetectLookedAtInteractive : MonoBehaviour
 
         if (objectWasDetected)
         {
-            //Debug.Log($"You are looking at:  {hitInfo.collider.gameObject.name}");
+            Debug.Log($"You are looking at:  {hitInfo.collider.gameObject.name}");
             interactive = hitInfo.collider.gameObject.GetComponent<IInteractive>();
         }
 
