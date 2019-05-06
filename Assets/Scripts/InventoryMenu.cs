@@ -5,6 +5,9 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class InventoryMenu : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject inventoryMenuItemTogglePrefab;
+
     private static InventoryMenu instance;
     private CanvasGroup canvasGroup;
     private RigidbodyFirstPersonController rigidbodyFirstPersonController;
@@ -26,6 +29,14 @@ public class InventoryMenu : MonoBehaviour
     public void ExitMenuButtonClick()
     {
         HideMenu();
+    }
+    /// <summary>
+    /// Instantiates a new InventoryMenuItemToggle prefab and adds it to the menu.
+    /// </summary>
+    /// <param name="inventoryObjectToAdd"></param>
+    public void AddItemToMenu(InventoryObject inventoryObjectToAdd)
+    {
+        Instantiate(inventoryMenuItemTogglePrefab);
     }
 
     private void ShowMenu()
@@ -76,9 +87,18 @@ public class InventoryMenu : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
     private void Start()
+    {        
+        HideMenu();       
+        StartCoroutine(WaitForAudioClip());
+    }
+
+    private IEnumerator WaitForAudioClip()
     {
+        float originalVolume = audioSource.volume;
         audioSource.volume = 0;
-        HideMenu();
+        Debug.Log("Start waiting.");
+        yield return new WaitForSeconds(audioSource.clip.length);
+        Debug.Log("Done waiting.");
         audioSource.volume = 1;
     }
 }
