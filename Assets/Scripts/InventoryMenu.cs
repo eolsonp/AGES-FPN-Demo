@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 
 public class InventoryMenu : MonoBehaviour
@@ -8,10 +9,24 @@ public class InventoryMenu : MonoBehaviour
     [SerializeField]
     private GameObject inventoryMenuItemTogglePrefab;
 
+    [Tooltip("Content of the scrollview for the list of inventory items.")]
+    [SerializeField]
+    private Transform inventoryListContentArea;
+
+    [Tooltip("Place in the UI for displaying the name of the selected inventory item.")]
+    [SerializeField]
+    private Text itemLabelText;
+
+    [Tooltip("Place in the UI for displaying the name of the selected inventory item.")]
+    [SerializeField]
+    private Text descriptionAreaText;
+
     private static InventoryMenu instance;
     private CanvasGroup canvasGroup;
     private RigidbodyFirstPersonController rigidbodyFirstPersonController;
     private AudioSource audioSource;
+    
+
     public static InventoryMenu Instance
     {
         get
@@ -36,7 +51,10 @@ public class InventoryMenu : MonoBehaviour
     /// <param name="inventoryObjectToAdd"></param>
     public void AddItemToMenu(InventoryObject inventoryObjectToAdd)
     {
-        Instantiate(inventoryMenuItemTogglePrefab);
+        GameObject clone = Instantiate(inventoryMenuItemTogglePrefab,inventoryListContentArea);
+        InventoryMenuItemToggle toggle = clone.GetComponent<InventoryMenuItemToggle>();
+        toggle.AssociatedInventoryObject = inventoryObjectToAdd;
+       
     }
 
     private void ShowMenu()
@@ -57,6 +75,25 @@ public class InventoryMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         rigidbodyFirstPersonController.enabled = true;
         audioSource.Play();
+    }
+
+    /// <summary>
+    /// This is the event handler for InventoryMenuItemSeleced
+    /// </summary>
+    private void OnInventoryMenuItemSelected(InventoryObject inventoryObjectThatWasSelected)
+    {
+        itemLabelText.text = inventoryObjectThatWasSelected.ObjectName;
+        descriptionAreaText.text = inventoryObjectThatWasSelected.Description;
+    }
+
+    private void OnEnable()
+    {
+        InventoryMenuItemToggle.InventoryMenuItemSelected += OnInventoryMenuItemSelected;
+    }
+
+    private void OnDisable()
+    {
+        InventoryMenuItemToggle.InventoryMenuItemSelected -= OnInventoryMenuItemSelected;
     }
 
     private void Update()
@@ -85,6 +122,7 @@ public class InventoryMenu : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
         rigidbodyFirstPersonController = FindObjectOfType<RigidbodyFirstPersonController>();
         audioSource = GetComponent<AudioSource>();
+        
     }
     private void Start()
     {        
