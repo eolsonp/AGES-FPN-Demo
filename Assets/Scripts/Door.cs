@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animator))]
 public class Door : InteractiveObject
@@ -24,6 +25,9 @@ public class Door : InteractiveObject
     [Tooltip("Play this audio clip when the player opens the door.")]
     [SerializeField]
     private AudioClip openAudioClip;
+
+    [SerializeField]
+    private bool willLoadNextScene = false;
 
     //public override string DisplayText => isLocked ? lockedDisplayText :  base.DisplayText;
 
@@ -86,6 +90,8 @@ public class Door : InteractiveObject
                 displayText = string.Empty;
                 isOpen = true;
                 UnlockDoor();
+                if (willLoadNextScene)
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
             }
             base.InteractWith(); //This plays a sound effect
         }       
