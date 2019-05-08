@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InventoryObject : InteractiveObject
 {
+    #region SerializeFields
     [Tooltip("The name of the object, as it will appear in the inventory menu UI.")]
     [SerializeField]
     private string objectName = nameof(InventoryObject);
@@ -16,6 +17,7 @@ public class InventoryObject : InteractiveObject
     [Tooltip("Icon to display for this item in the inventory menu.")]
     [SerializeField]
     private Sprite icon;
+    #endregion
 
     public Sprite Icon => icon;
     public string ObjectName => objectName;
@@ -36,12 +38,11 @@ public class InventoryObject : InteractiveObject
     {
         displayText = $"Take {objectName}";
     }
-
-        /// <summary>
-        /// When the player interacts with an inventory object, we need to do 2 things:
-        /// 1. Add the inventory object to the PlayerInventory list
-        /// 2.Remonve the object from the game world/scene
-        /// </summary>
+    /// <summary>
+    /// When the player interacts with an inventory object, we need to do 2 things:
+    /// 1. Add the inventory object to the PlayerInventory list
+    /// 2.Remove the object from the game world/scene
+    /// </summary>
     public override void InteractWith()
     {
         base.InteractWith();

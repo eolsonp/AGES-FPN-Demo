@@ -11,7 +11,6 @@ public class InventoryMenuItemToggle : MonoBehaviour
     private Image iconImage;
 
     public static event Action<InventoryObject> InventoryMenuItemSelected;    
-
     private InventoryObject associatedInventoryObject;
 
     public InventoryObject AssociatedInventoryObject
