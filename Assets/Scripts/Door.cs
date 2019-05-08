@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Animator))]
 public class Door : InteractiveObject
 {
-    [Tooltip("Assigning a key here will lock he door. If the player has the key in their inventory, they can open the locked door")]
+    #region Serializefields
+    
+    [Tooltip("Assigning a key here will lock the door. If the player has the key in their inventory, they can open the locked door")]
     [SerializeField]
     private InventoryObject key;
 
@@ -26,11 +28,10 @@ public class Door : InteractiveObject
     [SerializeField]
     private AudioClip openAudioClip;
 
+    [Tooltip("Loads next scene when the player interacts with this door")]
     [SerializeField]
     private bool willLoadNextScene = false;
-
-    //public override string DisplayText => isLocked ? lockedDisplayText :  base.DisplayText;
-
+    #endregion
     public override string DisplayText
     {
         get
@@ -45,7 +46,6 @@ public class Door : InteractiveObject
             return toReturn;
         }
     }
-
 
     private bool HasKey => PlayerInventory.InventoryObjects.Contains(key);
     private Animator animator;
