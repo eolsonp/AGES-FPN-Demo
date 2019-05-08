@@ -9,9 +9,7 @@ using UnityEngine;
 
 public class InteractWithLookedAt : MonoBehaviour
 {
-    private IInteractive lookedAtInteractive;
-
-    
+    private IInteractive lookedAtInteractive; 
     // Update is called once per frame
     void Update()
     {
