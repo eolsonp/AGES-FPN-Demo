@@ -19,8 +19,7 @@ public class Flashlight : MonoBehaviour
         {
             lightOn = !lightOn;
             turnLightOn();
-        }
-            
+        }      
     }
 
     private void turnLightOn()
