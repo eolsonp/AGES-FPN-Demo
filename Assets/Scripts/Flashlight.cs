@@ -7,12 +7,12 @@ public class Flashlight : MonoBehaviour
     private Light flashLight;
     private bool lightOn = false;
    
-        void Start()
-        {
-            flashLight = GetComponentInChildren<Light>();
-        }
+    void Start()
+    {
+        flashLight = GetComponentInChildren<Light>();
+    }
 
-        void Update()
+    void Update()
     {
         turnLightOn();
     }
