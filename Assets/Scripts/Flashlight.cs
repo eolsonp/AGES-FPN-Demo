@@ -15,6 +15,8 @@ public class Flashlight : MonoBehaviour
     void Update()
     {
         turnLightOn();
+        if (Input.GetKeyDown(KeyCode.F))
+            lightOn = !lightOn;
     }
 
     private void turnLightOn()
@@ -23,7 +25,6 @@ public class Flashlight : MonoBehaviour
             flashLight.enabled = true;
         else if (!lightOn)
             flashLight.enabled = false;
-        if (Input.GetKeyDown(KeyCode.F))
-            lightOn = !lightOn;
+        
     }
 }
