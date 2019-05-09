@@ -13,12 +13,17 @@ public class Flashlight : MonoBehaviour
         }
 
         void Update()
-        {
-            if (lightOn)
-                flashLight.enabled = true;
-            else if (!lightOn)
-                flashLight.enabled = false;
-            if (Input.GetKeyDown(KeyCode.F))
-                lightOn = !lightOn;
-        }
+    {
+        turnLightOn();
     }
+
+    private void turnLightOn()
+    {
+        if (lightOn)
+            flashLight.enabled = true;
+        else if (!lightOn)
+            flashLight.enabled = false;
+        if (Input.GetKeyDown(KeyCode.F))
+            lightOn = !lightOn;
+    }
+}
